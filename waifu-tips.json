@@ -1,21 +1,21 @@
 {
     "waifu": {
-        "console_open_msg": ["哈哈，你打开了控制台，是想要看看我的秘密吗？"],
-        "copy_message": ["你都复制了些什么呀，转载要记得加上出处哦"],
-        "screenshot_message": ["照好了嘛，是不是很可爱呢？"],
-        "hidden_message": ["舰长补给全保底，舰长副本零掉落"],
-        "load_rand_textures": ["我还没有其他衣服呢", "我的新衣服好看嘛"],
+        "console_open_msg": ["Hai, kamu membuka console! Mau lihat rahasiaku?"],
+        "copy_message": ["Apa yang kamu salin? Jangan lupa cantumkan sumbernya!"],
+        "screenshot_message": ["Sudah difoto, lucu kan?"],
+        "hidden_message": ["Persediaan aman, tapi drop di dungeon nol!"],
         "hour_tips": {
-            "t5-7": ["早上好！一日之计在于晨，美好的一天就要开始了"],
-            "t7-11": ["上午好！工作顺利嘛，不要久坐，多起来走动走动哦！"],
-            "t11-14": ["中午了，工作了一个上午，现在是午餐时间！"],
-            "t14-17": ["午后很容易犯困呢，今天的运动目标完成了吗？"],
-            "t17-19": ["傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~"],
-            "t19-21": ["晚上好，今天过得怎么样？"],
-            "t21-23": ["已经这么晚了呀，早点休息吧，晚安~"],
-            "t23-5": ["你是夜猫子呀？这么晚还不睡觉，明天起的来嘛"],
-            "default": ["嗨~ 快来逗我玩吧！"]
+            "t5-7": ["Selamat pagi! Semoga harimu menyenangkan!"],
+            "t7-11": ["Pagi! Jangan terlalu lama duduk, ayo bergerak!"],
+            "t11-14": ["Saatnya makan siang!"],
+            "t14-17": ["Sore, jangan ngantuk ya!"],
+            "t17-19": ["Senja yang indah, lihat luar jendela~"],
+            "t19-21": ["Selamat malam, harimu menyenangkan?"],
+            "t21-23": ["Sudah larut, istirahatlah~"],
+            "t23-5": ["Malamnya panjang, bangun besok bisa kan?"],
+            "default": ["Hai~ Ayo main denganku!"]
         },
+        
         "referrer_message": {
             "localhost": ["欢迎阅读<span style=\"color:DarkBlue;\">『", "』</span>", " - "],
             "baidu": ["Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style=\"color:DarkBlue;\">", "</span> 找到的我吗？"],

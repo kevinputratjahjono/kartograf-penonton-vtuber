@@ -40,5 +40,36 @@
 
   <!-- Script untuk fetch & plot peta -->
   <script src="script_map.js"></script>
+
+  <script>
+    async function getModels() {
+      const response = await fetch("models.json");
+      return await response.json();
+    }
+    
+    async function initLive2D() {
+      const models = await getModels();
+      console.log("Daftar model:", models);
+    
+      if (models.length === 0) {
+        console.warn("Tidak ada model terdaftar di models.json");
+        return;
+      }
+    
+      // pilih model secara random
+      const chosen = models[Math.floor(Math.random() * models.length)];
+      console.log("Memuat model:", chosen);
+    
+      // contoh: panggil fungsi loader dari waifu-tips.js / live2d_bundle.js
+      if (typeof loadlive2d === "function") {
+        // kalau library pakai loadlive2d(idCanvas, pathModelJson)
+        loadlive2d("live2d2", `model/${chosen}/model.json`);
+      } else {
+        console.warn("Fungsi loadlive2d tidak ditemukan, cek waifu-tips.js");
+      }
+    }
+    
+    initLive2D();
+    </script>    
 </body>
 </html>

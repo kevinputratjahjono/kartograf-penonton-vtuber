@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Live2D & Kartogram</title>
+  <!-- CSS Live2D (jika ada) -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_map.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+  <!-- Elemen Live2D dari Live2dOnWeb -->
+  <div id="waifu">
+    <div id="waifu-message"></div>
+    <div class="waifu-tool">
+      <span class="icon-next"></span>
+      <span class="icon-home"></span>
+      <span class="icon-message"></span>
+      <span class="icon-camera"></span>
+      <span class="icon-volumeup"></span>
+      <span class="icon-volumedown"></span>
+      <span class="icon-about"></span>
+      <span class="icon-cross"></span>
+    </div>
+    <canvas id="live2d2"></canvas>
+    <canvas id="live2d4"></canvas>
+  </div>
+
+  <!-- Kontainer untuk peta -->
+  <div id="map"></div>
+
+  <!-- Script Live2D bundling -->
+  <script src="dist/live2d_bundle.js"></script>
+  <script async type="module" src="waifu-tips.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Script untuk fetch & plot peta -->
+  <script src="script_map.js"></script>
+</body>
+</html>

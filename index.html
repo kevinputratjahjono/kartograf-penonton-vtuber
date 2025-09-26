@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Live2D & Kartogram</title>
-  <!-- CSS Live2D (jika ada) -->
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style_map.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    /* Map full screen */
+    #map {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Elemen Live2D dari Live2dOnWeb -->
+  <!-- Live2D -->
   <div id="waifu">
     <div id="waifu-message"></div>
     <div class="waifu-tool">
@@ -28,48 +36,17 @@
     <canvas id="live2d4"></canvas>
   </div>
 
-  <!-- Kontainer untuk peta -->
+  <!-- Peta -->
   <div id="map"></div>
 
-  <!-- Script Live2D bundling -->
+  <!-- Script Live2D -->
   <script src="dist/live2d_bundle.js"></script>
   <script async type="module" src="waifu-tips.js"></script>
 
-  <!-- Leaflet JS -->
+  <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <!-- Script untuk fetch & plot peta -->
+  <!-- Script Choropleth -->
   <script src="script_map.js"></script>
-
-  <script>
-    async function getModels() {
-      const response = await fetch("models.json");
-      return await response.json();
-    }
-    
-    async function initLive2D() {
-      const models = await getModels();
-      console.log("Daftar model:", models);
-    
-      if (models.length === 0) {
-        console.warn("Tidak ada model terdaftar di models.json");
-        return;
-      }
-    
-      // pilih model secara random
-      const chosen = models[Math.floor(Math.random() * models.length)];
-      console.log("Memuat model:", chosen);
-    
-      // contoh: panggil fungsi loader dari waifu-tips.js / live2d_bundle.js
-      if (typeof loadlive2d === "function") {
-        // kalau library pakai loadlive2d(idCanvas, pathModelJson)
-        loadlive2d("live2d2", `model/${chosen}/model.json`);
-      } else {
-        console.warn("Fungsi loadlive2d tidak ditemukan, cek waifu-tips.js");
-      }
-    }
-    
-    initLive2D();
-    </script>    
 </body>
 </html>

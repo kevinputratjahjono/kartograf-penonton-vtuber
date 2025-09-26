@@ -1,58 +1,107 @@
-// --- INISIALISASI PETA ---
-const map = L.map("map", {
+// Inisialisasi peta tanpa kontrol zoom & attribution
+const map = L.map('map', {
   zoomControl: false,
   attributionControl: false
-}).setView([-2, 118], 5);
+}).setView([-2.5, 118], 5);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: ""
-}).addTo(map);
+// Tambah tile layer dasar (tanpa attribution tampil)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-// Daftar koordinat kota besar Indonesia
-const cityCoords = {
-  "Jakarta": [-6.2, 106.8],
-  "Bandung": [-6.91, 107.61],
-  "Surabaya": [-7.25, 112.75],
-  "Medan": [3.60, 98.67],
-  "Makassar": [-5.14, 119.41],
-  "Yogyakarta": [-7.8, 110.37],
-  "Semarang": [-6.99, 110.42],
-  "Palembang": [-2.98, 104.75],
-  "Denpasar": [-8.65, 115.22],
-  "Balikpapan": [-1.27, 116.83]
+// Fungsi warna gradasi hijau -> merah
+function getColor(d) {
+  return d > 80 ? '#800026' :
+         d > 60 ? '#BD0026' :
+         d > 40 ? '#E31A1C' :
+         d > 20 ? '#FD8D3C' :
+         d > 10 ? '#FEB24C' :
+         d > 5  ? '#ADFF2F' :
+         d > 0  ? '#7CFC00' :
+                  '#00FF00';
+}
+
+// Style tiap provinsi
+function style(feature) {
+  return {
+    fillColor: getColor(feature.properties.value || 0),
+    weight: 1,
+    opacity: 1,
+    color: 'white',
+    dashArray: '',
+    fillOpacity: 0.7
+  };
+}
+
+// Highlight interaktif
+function highlightFeature(e) {
+  var layer = e.target;
+  layer.setStyle({
+    weight: 2,
+    color: '#333',
+    dashArray: '',
+    fillOpacity: 0.8
+  });
+  layer.bringToFront();
+  info.update(layer.feature.properties);
+}
+
+function resetHighlight(e) {
+  geojson.resetStyle(e.target);
+  info.update();
+}
+
+function zoomToFeature(e) {
+  map.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+    click: zoomToFeature
+  });
+}
+
+// Info box
+const info = L.control({position: 'topright'});
+info.onAdd = function () {
+  this._div = L.DomUtil.create('div', 'info');
+  this.update();
+  return this._div;
 };
+info.update = function (props) {
+  this._div.innerHTML = '<h4>Data Provinsi</h4>' +  (props ?
+    '<b>' + props.NAME_1 + '</b><br />' + (props.value || 0) + ' data'
+    : 'Arahkan mouse ke provinsi');
+};
+info.addTo(map);
 
-// Baca CSV lokal
-Papa.parse("data.csv", {
-  download: true,
-  header: true,
-  complete: function(results) {
-    const counts = {};
-
-    // Hitung jumlah per lokasi
-    results.data.forEach(row => {
-      if (!row.lokasi) return;
-      const lokasi = row.lokasi.trim();
-      counts[lokasi] = (counts[lokasi] || 0) + 1;
-    });
-
-    // Plot ke peta
-    Object.keys(counts).forEach(lokasi => {
-      if (!cityCoords[lokasi]) return;
-
-      const [lat, lng] = cityCoords[lokasi];
-      const jumlah = counts[lokasi];
-
-      L.circleMarker([lat, lng], {
-        radius: 5 + jumlah * 2, // ukuran lingkaran = jumlah data
-        fillColor: "#007bff",
-        color: "#333",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7
-      })
-      .bindPopup(`<b>${lokasi}</b><br>Jumlah pengisi: ${jumlah}`)
-      .addTo(map);
-    });
+// Legend
+const legend = L.control({position: 'bottomright'});
+legend.onAdd = function () {
+  const div = L.DomUtil.create('div', 'info legend'),
+    grades = [0, 5, 10, 20, 40, 60, 80],
+    labels = [];
+  for (let i = 0; i < grades.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+      grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
   }
-});
+  return div;
+};
+legend.addTo(map);
+
+// Load GeoJSON provinsi Indonesia
+let geojson;
+fetch('indonesia_provinces.geojson')
+  .then(res => res.json())
+  .then(data => {
+    // Assign dummy value ke setiap provinsi
+    data.features.forEach(f => {
+      f.properties.value = Math.floor(Math.random() * 100); // random 0-100
+    });
+
+    geojson = L.geoJson(data, {
+      style: style,
+      onEachFeature: onEachFeature
+    }).addTo(map);
+  });

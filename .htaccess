@@ -1,0 +1,20 @@
+# === Aktifkan Brotli & Gzip compression ===
+<IfModule mod_mime.c>
+  AddEncoding br .br
+  AddEncoding gzip .gz
+</IfModule>
+
+# === Set MIME type Live2D model JSON ===
+AddType application/json .json
+AddType application/json .model3.json
+
+# === Favicon ===
+AddType image/x-icon .ico
+<FilesMatch "favicon.ico">
+  Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# === CORS untuk Google Sheets / Live2D model ===
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>

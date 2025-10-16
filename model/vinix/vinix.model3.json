@@ -1,0 +1,29 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "vinix.moc3",
+		"Textures": [
+			"vinix.16384/texture_00.png"
+		],
+		"Physics": "vinix.physics3.json",
+		"DisplayInfo": "vinix.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeLOpen2"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeLOpen2"
+			]
+		}
+	]
+}

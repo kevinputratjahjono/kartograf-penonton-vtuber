@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Live2D & Kartogram</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_map.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Map full screen */
+    #map {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Live2D -->
+  <div id="waifu">
+    <div id="waifu-message"></div>
+    <div class="waifu-tool">
+      <span class="icon-next"></span>
+      <span class="icon-home"></span>
+      <span class="icon-message"></span>
+      <span class="icon-camera"></span>
+      <span class="icon-volumeup"></span>
+      <span class="icon-volumedown"></span>
+      <span class="icon-about"></span>
+      <span class="icon-cross"></span>
+    </div>
+    <canvas id="live2d2"></canvas>
+    <canvas id="live2d4"></canvas>
+  </div>
+
+  <!-- Peta -->
+  <div id="map"></div>
+
+  <!-- Script Live2D -->
+  <script src="dist/live2d_bundle.js"></script>
+  <script async type="module" src="waifu-tips.js"></script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Script Choropleth -->
+  <script src="scriptMap.js"></script>
+</body>
+</html>
